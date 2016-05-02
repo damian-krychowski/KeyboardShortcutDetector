@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fixture\MultipleShortcutsObserver.cs" />
+    <Compile Include="Fixture\NotAShortcutObserver.cs" />
     <Compile Include="Fixture\RangeShortcutObserver.cs" />
     <Compile Include="Fixture\ITestFixture.cs" />
     <Compile Include="Fixture\KeyboardMock.cs" />

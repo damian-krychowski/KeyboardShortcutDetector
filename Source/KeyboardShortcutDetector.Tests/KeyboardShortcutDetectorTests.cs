@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using FluentAssertions;
 using KeyboardShortcutDetector.Tests.Fixture;
 using NUnit.Framework;
@@ -183,6 +184,32 @@ namespace KeyboardShortcutDetector.Tests
             shortcutObserver.CtrlAltDigitReleasedCounter.Should().Be(1);
             shortcutObserver.LastPressedDigitKey[0].Should().Be(Key.D7);
             shortcutObserver.LastReleasedDigitKey[0].Should().Be(Key.D7);
+        }
+
+        [Test]
+        public void Should_throw_on_subscribing_observer_without_proper_interfaces()
+        {
+            //Arrange
+            var notAObserver = new NotAShortcutObserver();
+
+            // Act & Assert
+            Action subscription = () => Fixture.ShortuctDetector.Subscribe(notAObserver);
+
+            subscription.ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void Should_throw_on_subscribing_observer_when_shortcut_is_not_registered()
+        {
+            //Arrange
+            var shortcutObserver = new MultipleShortcutsObserver();
+
+            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
+
+            //Act & Assert
+            Action subscription = () => Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+
+            subscription.ShouldThrow<Exception>();
         }
     }
 }

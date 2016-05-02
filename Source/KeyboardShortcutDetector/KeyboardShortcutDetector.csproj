@@ -52,6 +52,7 @@
     <Compile Include="IKeyCombination.cs" />
     <Compile Include="ImmutableArrayExtensions.cs" />
     <Compile Include="Keyboard.cs" />
+    <Compile Include="KeyboardShortcutDetectorFactory.cs" />
     <Compile Include="ShortcutDetector.cs" />
     <Compile Include="KeyboardState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
