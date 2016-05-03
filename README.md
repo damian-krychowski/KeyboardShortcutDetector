@@ -2,6 +2,9 @@
 
 C# keyboard listener detecting shortcuts.
 
+Build status: 
+[![Build status](https://ci.appveyor.com/api/projects/status/yy9xm6q5uw8crd64?svg=true)](https://ci.appveyor.com/project/damian-krychowski/keyboardshortcutdetector)
+
 ## Shortcuts
 
 This library allows to subscribe to keyboard shortcut events. There are two kinds of events: shortcut can be pressed or released.
