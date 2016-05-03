@@ -44,7 +44,7 @@ namespace KeyboardShortcutDetector
         {
             _hookedLowLevelKeyboardProc = LowLevelKeyboardProc;
             _hookId = SetHook(_hookedLowLevelKeyboardProc);
-            _hookedKeyboardCallbackAsync = KeyboardCallback;
+            //_hookedKeyboardCallbackAsync = KeyboardCallback;
         }
         
         private void KeyboardCallback(KeyEvent keyEvent, int vkCode)
