@@ -28,7 +28,7 @@ namespace KeyboardShortcutDetector.Tests
             var shortcut = new RangeShortcut(new[] {Key.LeftCtrl, Key.LeftAlt,}, KeyRange.Digits());
 
             shortcut.KeyboardStateChanged(keyboardState).Should().Be(ShortcutStateChange.None);
-            shortcut.LastKeyInRange.Should().BeNull();
+            shortcut.LastKey.Should().BeNull();
         }
 
         [TestCase(
@@ -54,7 +54,7 @@ namespace KeyboardShortcutDetector.Tests
             var shortcut = new RangeShortcut(new[] {Key.LeftCtrl, Key.LeftAlt,}, KeyRange.Digits());
 
             shortcut.KeyboardStateChanged(keyboardState).Should().Be(ShortcutStateChange.Pressed);
-            shortcut.LastKeyInRange.Should().Be(expectedLastKey);
+            shortcut.LastKey.Should().Be(expectedLastKey);
         }
 
         [TestCase(
@@ -77,7 +77,7 @@ namespace KeyboardShortcutDetector.Tests
             var shortcut = new RangeShortcut(new[] {Key.LeftCtrl, Key.LeftAlt,}, KeyRange.Digits());
 
             shortcut.KeyboardStateChanged(keyboardState).Should().Be(ShortcutStateChange.None);
-            shortcut.LastKeyInRange.Should().Be(null);
+            shortcut.LastKey.Should().Be(null);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace KeyboardShortcutDetector.Tests
             var shortcut = new RangeShortcut(new[] { Key.LeftCtrl, Key.LeftAlt, }, KeyRange.Digits());
 
             shortcut.KeyboardStateChanged(keyboardState).Should().Be(ShortcutStateChange.Released);
-            shortcut.LastKeyInRange.Should().Be(Key.D0);
+            shortcut.LastKey.Should().Be(Key.D0);
         }
     }
 }

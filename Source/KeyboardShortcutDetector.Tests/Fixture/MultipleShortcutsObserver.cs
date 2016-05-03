@@ -18,13 +18,13 @@ namespace KeyboardShortcutDetector.Tests.Fixture
         public void ShortcutPressed(CtrlAltDigit shortcut)
         {
             CtrlAltDigitPressedCounter ++;
-            LastPressedDigitKey.Add(shortcut.LastKeyInRange.Value);
+            LastPressedDigitKey.Add(shortcut.LastKey.Value);
         }
 
         public void ShortcutReleased(CtrlAltDigit shortcut)
         {
             CtrlAltDigitReleasedCounter ++;
-            LastReleasedDigitKey.Add(shortcut.LastKeyInRange.Value);
+            LastReleasedDigitKey.Add(shortcut.LastKey.Value);
         }
 
         public void ShortcutPressed(CtrlAltDel shortcut)

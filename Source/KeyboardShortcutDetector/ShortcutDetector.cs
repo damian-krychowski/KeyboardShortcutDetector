@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace KeyboardShortcutDetector
 {
-    internal class ShortcutDetector : IKeyboardShortuctDetector
+    internal class ShortcutDetector : IKeyboardShortcutDetector
     {
         private readonly IKeyboard _keyboard;
         private readonly List<IKeyboardShortcut> _shortcuts = new List<IKeyboardShortcut>(); 

@@ -19,9 +19,12 @@ namespace KeyboardShortcutDetector
             _toKey = toKey;
         }
 
-        public bool IsInRange(Key key)
+        public IEnumerable<Key> ToSeries()
         {
-            return key >= _fromKey && key <= _toKey;
+            for (var key = _fromKey; key <= _toKey; key++)
+            {
+                yield return key;
+            }
         }
 
         public static KeyRange Digits()
@@ -40,50 +43,14 @@ namespace KeyboardShortcutDetector
         }
     }
 
-    public class RangeShortcut : IKeyboardShortcut
+    public class RangeShortcut : SeriesShortcut
     {
         private readonly ImmutableArray<Key> _keys;
         private readonly KeyRange _lastKeyRange;
 
-        public RangeShortcut(IEnumerable<Key> keys, KeyRange lastKeyRange)
+        public RangeShortcut(IEnumerable<Key> keys, KeyRange lastKeyRange) : base(
+            keys, lastKeyRange.ToSeries())
         {
-            _keys = keys.ToImmutableArray();
-            _lastKeyRange = lastKeyRange;
-        }
-
-        public Key? LastKeyInRange { get; private set; }
-
-        public ShortcutStateChange KeyboardStateChanged(KeyboardState state)
-        {
-            if (WasPressed(state))
-            {
-                LastKeyInRange = state.CurrentCombination.Last();
-                return ShortcutStateChange.Pressed;
-            }
-
-            if (WasReleased(state))
-            {
-                LastKeyInRange = state.PreviousCombination.Last();
-                return ShortcutStateChange.Released;
-            }
-
-            LastKeyInRange = null;
-            return ShortcutStateChange.None;
-        }
-
-        private bool WasPressed(KeyboardState state)
-        {
-            return Enumerable.SequenceEqual(state.PreviousCombination, _keys) &&
-                   Enumerable.SequenceEqual(state.CurrentCombination.SkipLast(), _keys) &&
-                   _lastKeyRange.IsInRange(state.CurrentCombination.Last());
-        }
-
-        private bool WasReleased(KeyboardState state)
-        {
-            return Enumerable.SequenceEqual(state.BeforePreviousCombination, _keys) &&
-                   Enumerable.SequenceEqual(state.PreviousCombination.SkipLast(), _keys) &&
-                   _lastKeyRange.IsInRange(state.PreviousCombination.Last()) &&
-                   Enumerable.SequenceEqual(state.CurrentCombination, _keys);
         }
     }
 }

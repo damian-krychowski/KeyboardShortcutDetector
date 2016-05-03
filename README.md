@@ -5,7 +5,7 @@ C# keyboard listener detecting shortcuts.
 ## Shortcuts
 
 This library allows to subscribe to keyboard shortcut events. There are two kinds of events: shortcut can be pressed or released.
-Each shortcut is represented by a class. There are two base classes provided: `Shortcut` and `RangeShortcut`. Each can be used to create
+Each shortcut is represented by a class. There are two base classes provided: `Shortcut`, `SeriesShortcut` and `RangeShortcut`. Each can be used to create
 derived shortcut classes. 
 
 ```csharp
@@ -33,14 +33,25 @@ public class LeftCtrlDigitShortcut : RangeShortcut
     {
     }
 }
-```
 
-```csharp
 public class RightCtrlSomeLettersShortcut : RangeShortcut
 {
     public RightCtrlSomeLettersShortcut() : base(
         new[] {Key.RightCtrl},
         new KeyRange(fromKey: Key.A, toKey: Key.G))
+    {
+    }
+}
+```
+
+There is also `SeriesShortcut` available. Last key can be picked from specified list of possible keys.
+
+```csharp
+public class LeftCtrlEvenDigitShortcut : SeriesShortcut
+{
+    public LeftCtrlEvenDigitShortcut() : base(
+        new []{Key.LeftCtrl }, 
+        new []{Key.D0, Key.D2, Key.D4, Key.D6, Key.D8})
     {
     }
 }

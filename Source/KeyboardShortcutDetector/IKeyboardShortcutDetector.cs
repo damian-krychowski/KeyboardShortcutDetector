@@ -2,7 +2,7 @@
 
 namespace KeyboardShortcutDetector
 {
-    public interface IKeyboardShortuctDetector : IDisposable
+    public interface IKeyboardShortcutDetector : IDisposable
     {
         void RegisterShortcut(IKeyboardShortcut shortcut);
         void Subscribe(object observer);

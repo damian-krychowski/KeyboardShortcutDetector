@@ -9,12 +9,12 @@ namespace KeyboardShortcutDetector.Tests
     internal class ShortcutDetextorFixture : ITestFixture
     {
         public KeyboardMock Keyboard { get; private set; }
-        public IKeyboardShortuctDetector ShortuctDetector { get; private set; }
+        public IKeyboardShortcutDetector ShortcutDetector { get; private set; }
 
         public void SetUp()
         {
             Keyboard = new KeyboardMock();
-            ShortuctDetector = new ShortcutDetector(Keyboard);
+            ShortcutDetector = new ShortcutDetector(Keyboard);
         }
 
         public void TearDown()
@@ -42,8 +42,8 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new ShortcutObserverMock();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
-            Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
+            Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
             Fixture.Press(Key.LeftCtrl);
@@ -61,8 +61,8 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new ShortcutObserverMock();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
-            Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
+            Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
             Fixture.Press(Key.LeftCtrl);
@@ -86,8 +86,8 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new RangeShortcutObserver();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDigit());
-            Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigit());
+            Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
             Fixture.Press(Key.LeftCtrl);
@@ -117,8 +117,8 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new ShortcutObserverMock();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
-            Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
+            Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
             Fixture.Press(Key.LeftCtrl);
@@ -137,9 +137,9 @@ namespace KeyboardShortcutDetector.Tests
             var firstShortcutObserver = new ShortcutObserverMock();
             var secondShortcutObserver = new ShortcutObserverMock();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
-            Fixture.ShortuctDetector.Subscribe(firstShortcutObserver);
-            Fixture.ShortuctDetector.Subscribe(secondShortcutObserver);
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
+            Fixture.ShortcutDetector.Subscribe(firstShortcutObserver);
+            Fixture.ShortcutDetector.Subscribe(secondShortcutObserver);
 
             //Act
             Fixture.Press(Key.LeftCtrl);
@@ -162,9 +162,9 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new MultipleShortcutsObserver();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
-             Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDigit());
-            Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
+             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigit());
+            Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
             Fixture.Press(Key.LeftCtrl);
@@ -193,7 +193,7 @@ namespace KeyboardShortcutDetector.Tests
             var notAObserver = new NotAShortcutObserver();
 
             // Act & Assert
-            Action subscription = () => Fixture.ShortuctDetector.Subscribe(notAObserver);
+            Action subscription = () => Fixture.ShortcutDetector.Subscribe(notAObserver);
 
             subscription.ShouldThrow<ArgumentException>();
         }
@@ -204,10 +204,10 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new MultipleShortcutsObserver();
 
-            Fixture.ShortuctDetector.RegisterShortcut(new CtrlAltDel());
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
 
             //Act & Assert
-            Action subscription = () => Fixture.ShortuctDetector.Subscribe(shortcutObserver);
+            Action subscription = () => Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             subscription.ShouldThrow<Exception>();
         }
