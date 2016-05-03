@@ -25,7 +25,7 @@ public class CtrlAltDelShortcut : Shortcut
 
 For more complicated shortcuts there is `RangeShortcut` base class prepared. It allows to create shortcuts where last key can be 
 picked from defined range like for example from digits between 0-9 or from letters between A-Z. Custom ranges can be defined as well.
-There is `LastKeyInRange` property defined - it allows to check which key was the shortcut triggered with.
+There is `LastKey` property defined - it allows to check which key was the shortcut triggered with.
 
 ```csharp
 public class LeftCtrlDigitShortcut : RangeShortcut
