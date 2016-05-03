@@ -8,7 +8,7 @@ namespace KeyboardShortcutDetector
 {
     public class KeyboardShortcutDetectorFactory
     {
-        public IKeyboardShortuctDetector Create()
+        public IKeyboardShortcutDetector Create()
         {
             return new ShortcutDetector(
                 new Keyboard());

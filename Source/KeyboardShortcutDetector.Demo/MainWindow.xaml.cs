@@ -40,7 +40,7 @@ namespace KeyboardShortcutDetector.Demo
         IShortcutObserver<LeftCtrlDigitShortcut>,
         IShortcutObserver<RightCtrlLetterShortcut>
     {
-        private IKeyboardShortuctDetector _detector;
+        private IKeyboardShortcutDetector _detector;
 
         public MainWindow()
         {
@@ -59,7 +59,7 @@ namespace KeyboardShortcutDetector.Demo
 
         public void ShortcutPressed(LeftCtrlDigitShortcut shortcut)
         {
-            Result.Text = "LeftCtr + " + shortcut.LastKeyInRange.ToString();
+            Result.Text = "LeftCtr + " + shortcut.LastKey.ToString();
         }
 
         public void ShortcutReleased(LeftCtrlDigitShortcut shortcut)
@@ -69,12 +69,18 @@ namespace KeyboardShortcutDetector.Demo
 
         public void ShortcutPressed(RightCtrlLetterShortcut shortcut)
         {
-            Result.Text = "RightCtrl + " + shortcut.LastKeyInRange.ToString();
+            Result.Text = "RightCtrl + " + shortcut.LastKey.ToString();
         }
 
         public void ShortcutReleased(RightCtrlLetterShortcut shortcut)
         {
             Result.Text = "RightCtrl combination released";
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _detector.Dispose();
         }
     }
 }
