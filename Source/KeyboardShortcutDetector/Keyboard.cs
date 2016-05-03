@@ -49,7 +49,7 @@ namespace KeyboardShortcutDetector
         
         private void KeyboardCallback(KeyEvent keyEvent, int vkCode)
         {
-            var selectedKey = (Key) vkCode;
+            var selectedKey = KeyInterop.KeyFromVirtualKey(vkCode);
 
             if (WasKeyPressed(keyEvent) && _state.IsReleased(selectedKey))
             {
@@ -105,6 +105,8 @@ namespace KeyboardShortcutDetector
                     wParam.ToUInt32() == (int)KeyEvent.WmSyskeydown ||
                     wParam.ToUInt32() == (int)KeyEvent.WmSyskeyup)
                 {
+                    //_hookedKeyboardCallbackAsync.BeginInvoke((KeyEvent) wParam.ToUInt32(), Marshal.ReadInt32(lParam),
+                    //    null, null);
                     KeyboardCallback((KeyEvent)wParam.ToUInt32(), Marshal.ReadInt32(lParam));
                 }
             }
