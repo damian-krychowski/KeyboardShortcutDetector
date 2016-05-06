@@ -62,7 +62,7 @@ Task("Push-NuGet-Package")
     var package = "../KeyboardShortcutDetector." + EnvironmentVariable("APPVEYOR_BUILD_VERSION") +".nupkg";
                 
     NuGetPush(package, new NuGetPushSettings {
-        Source = "nuget.org",
+        Source = "http://nuget.org/api/v2/",
         ApiKey = EnvironmentVariable("NUGET_API_KEY")
     });
 });
