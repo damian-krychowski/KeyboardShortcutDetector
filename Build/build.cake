@@ -49,7 +49,7 @@ Task("Create-NuGet-Package")
         NoPackageAnalysis       = true,
         Files                   = new[] { new NuSpecContent {Source = "bin/Release/KeyboardShortcutDetector.dll", Target = "lib/net452"} },
         BasePath                = "../Source/KeyboardShortcutDetector",
-        OutputDirectory         = "."
+        OutputDirectory         = ".."
     };
     
     NuGetPack(nuGetPackSettings);
@@ -59,7 +59,7 @@ Task("Push-NuGet-Package")
     .IsDependentOn("Create-NuGet-Package")
     .Does(() =>
 {
-    var package = "./KeyboardShortcutDetector." + EnvironmentVariable("APPVEYOR_BUILD_VERSION") +".nupkg";
+    var package = "../KeyboardShortcutDetector." + EnvironmentVariable("APPVEYOR_BUILD_VERSION") +".nupkg";
                 
     NuGetPush(package, new NuGetPushSettings {
         ApiKey = EnvironmentVariable("NUGET_API_KEY")
