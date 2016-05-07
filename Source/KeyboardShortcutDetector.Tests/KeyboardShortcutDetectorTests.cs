@@ -86,7 +86,7 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new RangeShortcutObserver();
 
-            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigit());
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigitPermutation());
             Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
@@ -163,7 +163,7 @@ namespace KeyboardShortcutDetector.Tests
             var shortcutObserver = new MultipleShortcutsObserver();
 
             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
-             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigit());
+             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigitPermutation());
             Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
@@ -210,6 +210,23 @@ namespace KeyboardShortcutDetector.Tests
             Action subscription = () => Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             subscription.ShouldThrow<Exception>();
+        }
+
+        [Test]
+        public void Should_restart_on_ctrl_alt_del_shortcut()
+        {
+            //Arrange
+            Fixture.ShortcutDetector.RestartOnCtrlAltDel();
+
+            //Act
+            Fixture.Press(Key.LeftCtrl);
+            Fixture.Press(Key.LeftAlt);
+            Fixture.Press(Key.Delete);
+
+            //Assert
+            Fixture.Keyboard.State.BeforePreviousCombination.IsEmpty.Should().BeTrue();
+            Fixture.Keyboard.State.PreviousCombination.IsEmpty.Should().BeTrue();
+            Fixture.Keyboard.State.CurrentCombination.IsEmpty.Should().BeTrue();
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using KeyboardShortcutDetector.Shortcuts;
 
 namespace KeyboardShortcutDetector
 {
@@ -59,6 +60,11 @@ namespace KeyboardShortcutDetector
                     observerNotifyAction(shortcut);
                 }
             }
+        }
+
+        public void Restart()
+        {
+            _keyboard.Restart();
         }
 
         public void RegisterShortcut(IKeyboardShortcut shortcut)

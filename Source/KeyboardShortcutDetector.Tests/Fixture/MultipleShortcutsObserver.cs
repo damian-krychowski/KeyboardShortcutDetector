@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace KeyboardShortcutDetector.Tests.Fixture
 {
     internal class MultipleShortcutsObserver :
-        IShortcutObserver<CtrlAltDigit>,
+        IShortcutObserver<CtrlAltDigitPermutation>,
         IShortcutObserver<CtrlAltDel>
     {
         public int CtrlAltDelPressedCounter { get; private set; }
@@ -15,16 +15,16 @@ namespace KeyboardShortcutDetector.Tests.Fixture
         public List<Key> LastPressedDigitKey { get; } = new List<Key>();
         public List<Key> LastReleasedDigitKey { get; } = new List<Key>();
 
-        public void ShortcutPressed(CtrlAltDigit shortcut)
+        public void ShortcutPressed(CtrlAltDigitPermutation shortcut)
         {
             CtrlAltDigitPressedCounter ++;
-            LastPressedDigitKey.Add(shortcut.LastKey.Value);
+            LastPressedDigitKey.Add(shortcut.SelectedDigit.Value);
         }
 
-        public void ShortcutReleased(CtrlAltDigit shortcut)
+        public void ShortcutReleased(CtrlAltDigitPermutation shortcut)
         {
             CtrlAltDigitReleasedCounter ++;
-            LastReleasedDigitKey.Add(shortcut.LastKey.Value);
+            LastReleasedDigitKey.Add(shortcut.SelectedDigit.Value);
         }
 
         public void ShortcutPressed(CtrlAltDel shortcut)

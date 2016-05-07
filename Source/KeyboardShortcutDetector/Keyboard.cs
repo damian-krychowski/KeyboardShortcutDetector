@@ -36,7 +36,13 @@ namespace KeyboardShortcutDetector
         private readonly KeyboardCallbackAsync _hookedKeyboardCallbackAsync;
         private readonly LowLevelKeyboardProcedure _hookedLowLevelKeyboardProc;
         private readonly IntPtr _hookId;
+
         private KeyboardState _state = KeyboardState.Empty();
+
+        public void Restart()
+        {
+            _state = KeyboardState.Empty();;
+        }
 
         public event Action<KeyboardState> StateChanged;
 
