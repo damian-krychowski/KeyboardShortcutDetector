@@ -12,26 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KeyboardShortcutDetector.Keys;
 using KeyboardShortcutDetector.Shortcuts;
 
 namespace KeyboardShortcutDetector.Demo
 {
-    public class LeftCtrlDigitShortcut : RangeShortcut
+    public class LeftCtrlDigitShortcut : PermutationShortcut
     {
         public LeftCtrlDigitShortcut() : base(
-            new []{Key.LeftCtrl }, 
-            KeyRange.Digits())
+            new SingleKey(Key.LeftCtrl), 
+            new Digit())
         {
         }
+
+        public Key PressedDigit => LastTriggeredBy[1];
     }
 
-    public class RightCtrlLetterShortcut : RangeShortcut
+    public class RightCtrlLetterShortcut : PermutationShortcut
     {
         public RightCtrlLetterShortcut() : base(
-            new []{Key.RightCtrl},
-            KeyRange.Letters())
+            new SingleKey(Key.RightCtrl),
+            new Letter())
         {
         }
+
+        public Key PressedLetter => LastTriggeredBy[1];
     }
 
     /// <summary>
@@ -60,7 +65,7 @@ namespace KeyboardShortcutDetector.Demo
 
         public void ShortcutPressed(LeftCtrlDigitShortcut shortcut)
         {
-            Result.Text = "LeftCtr + " + shortcut.LastKey.ToString();
+            Result.Text = "LeftCtr + " + shortcut.PressedDigit.ToString();
         }
 
         public void ShortcutReleased(LeftCtrlDigitShortcut shortcut)
@@ -70,7 +75,7 @@ namespace KeyboardShortcutDetector.Demo
 
         public void ShortcutPressed(RightCtrlLetterShortcut shortcut)
         {
-            Result.Text = "RightCtrl + " + shortcut.LastKey.ToString();
+            Result.Text = "RightCtrl + " + shortcut.PressedLetter.ToString();
         }
 
         public void ShortcutReleased(RightCtrlLetterShortcut shortcut)

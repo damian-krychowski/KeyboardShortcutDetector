@@ -8,59 +8,55 @@ Build status:
 ## Shortcuts
 
 This library allows to subscribe to keyboard shortcut events. There are two kinds of events: shortcut can be pressed or released.
-Each shortcut is represented by a class. There are two base classes provided: `Shortcut`, `SeriesShortcut` and `RangeShortcut`. Each can be used to create
+Each shortcut is represented by a class. There are two base classes provided: `CombinationShortcut` and `PermutationShortcut`. Each can be used to create
 derived shortcut classes. 
 
-```csharp
-public class CtrlAltDelShortcut : Shortcut
-{
-    public CtrlAltDelShortcut() : base(Key.LeftCtrl, Key.LeftAlt, Key.Delete)
-    {        
-    }
-}
-```
+To create a shortcut user should specify the keys he want to use. `CombinationShortcut` doesn't recognize order of pressing the keys, while `PermutationShortcut` does. Each of the shortcut type
+has two constructor's overloads: 
+ - `(params Key[] keys)`
+ - `(params IKey[] keys)`
 
-`Shortcut` class allows to create simple shortcuts with provided keys. Order of pressing the keys does matter: 
-`Key.LeftCtrl -> Key.LeftAlt -> Key.Delete` and `Key.LeftAlt -> Key.LeftCtrl -> Key.Delete` are different shortcuts.
-
-For more complicated shortcuts there is `RangeShortcut` base class prepared. It allows to create shortcuts where last key can be 
-picked from defined range like for example from digits between 0-9 or from letters between A-Z. Custom ranges can be defined as well.
-There is `LastKey` property defined - it allows to check which key was the shortcut triggered with.
+Where `Key` represents single keyboard key, and `IKey` represents object able to interpret more than one `Key`, for example:
+ - `Ctrl` represents `Key.LeftCtrl` or `Key.RightCtrl`
+ - `SeriesKey` represents specified collection of `Keys` (like {`Key.D0`, `Key.D2`, `Key.D4`, `Key.D6`, `Key.D8`} - even numbers)
+ - `RangeKey` represents specified range of `Keys` (like `Key.A` - `Key.Z` - all letters)
+ - etc.
 
 ```csharp
-public class LeftCtrlDigitShortcut : RangeShortcut
-{
-    public LeftCtrlDigitShortcut() : base(
-        new []{Key.LeftCtrl }, 
-        KeyRange.Digits())
+    public class CtrlAltDelShortcut : CombinationShortcut
     {
+        public CtrlAltDelShortcut() : base(
+            new Ctrl(),
+            new Alt(),
+            new SingleKey(Key.Delete))
+        {
+            
+        }
     }
-}
-
-public class RightCtrlSomeLettersShortcut : RangeShortcut
-{
-    public RightCtrlSomeLettersShortcut() : base(
-        new[] {Key.RightCtrl},
-        new KeyRange(fromKey: Key.A, toKey: Key.G))
-    {
-    }
-}
 ```
+In the example above different keyboard keys combinations will trigger the shortcut, for example:
+ - LeftAlt -> LeftCtrl -> Delete
+ - RightCtrl -> Delete -> LeftAlt
 
-There is also `SeriesShortcut` available. Last key can be picked from specified list of possible keys.
+If the shortcut would be defined like this:
 
 ```csharp
-public class LeftCtrlEvenDigitShortcut : SeriesShortcut
-{
-    public LeftCtrlEvenDigitShortcut() : base(
-        new []{Key.LeftCtrl }, 
-        new []{Key.D0, Key.D2, Key.D4, Key.D6, Key.D8})
+    public class CtrlAltDelShortcut : PermutationShortcut
     {
+        public CtrlAltDelShortcut() : base(
+            Key.LeftCtr,
+            Key.LeftAlt,
+            Key.Delete)
+        {
+            
+        }
     }
-}
 ```
 
-There is also a possibility to implement own shortcut type with `IKeyboardShortcut` interface.
+Then only one combination would be valid: LeftCtrl -> LeftAlt -> Delete.
+
+Provided `CombinationShortcut` and `PermutationShortcut` alongside with ability to define own `IKey` implementation
+will allow user to create any shortcut he can imagine. However, there is also a possibility to implement own shortcut type with `IKeyboardShortcut` interface.
 
 ## Observers
 
@@ -95,29 +91,36 @@ Example how to use the KeyboardShortcutDetector (from WPF demo project):
 ```csharp
 namespace KeyboardShortcutDetector.Demo
 {
-    public class LeftCtrlDigitShortcut : RangeShortcut
+    public class LeftCtrlDigitShortcut : PermutationShortcut
     {
         public LeftCtrlDigitShortcut() : base(
-            new []{Key.LeftCtrl }, 
-            KeyRange.Digits())
+            new SingleKey(Key.LeftCtrl), 
+            new Digit())
         {
         }
+
+        public Key PressedDigit => LastTriggeredBy[1];
     }
 
-    public class RightCtrlLetterShortcut : RangeShortcut
+    public class RightCtrlLetterShortcut : PermutationShortcut
     {
         public RightCtrlLetterShortcut() : base(
-            new []{Key.RightCtrl},
-            KeyRange.Letters())
+            new SingleKey(Key.RightCtrl),
+            new Letter())
         {
         }
+
+        public Key PressedLetter => LastTriggeredBy[1];
     }
 
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window, 
         IShortcutObserver<LeftCtrlDigitShortcut>,
         IShortcutObserver<RightCtrlLetterShortcut>
     {
-        private IKeyboardShortuctDetector _detector;
+        private IKeyboardShortcutDetector _detector;
 
         public MainWindow()
         {
@@ -127,17 +130,16 @@ namespace KeyboardShortcutDetector.Demo
 
         private void InitializeShortcutDetector()
         {
-            _detector = new KeyboardShortcutDetectorFactory().Create(); 
-
-            _detector.RegisterShortcut(new LeftCtrlDigitShortcut());    
-            _detector.RegisterShortcut(new RightCtrlLetterShortcut());  
+            _detector = new KeyboardShortcutDetectorFactory().Create();
+            _detector.RegisterShortcut(new LeftCtrlDigitShortcut());
+            _detector.RegisterShortcut(new RightCtrlLetterShortcut());
 
             _detector.Subscribe(this);
         }
 
         public void ShortcutPressed(LeftCtrlDigitShortcut shortcut)
         {
-            Result.Text = "LeftCtr + " + shortcut.LastKeyInRange.ToString();
+            Result.Text = "LeftCtr + " + shortcut.PressedDigit.ToString();
         }
 
         public void ShortcutReleased(LeftCtrlDigitShortcut shortcut)
@@ -147,12 +149,18 @@ namespace KeyboardShortcutDetector.Demo
 
         public void ShortcutPressed(RightCtrlLetterShortcut shortcut)
         {
-            Result.Text = "RightCtrl + " + shortcut.LastKeyInRange.ToString();
+            Result.Text = "RightCtrl + " + shortcut.PressedLetter.ToString();
         }
 
         public void ShortcutReleased(RightCtrlLetterShortcut shortcut)
         {
             Result.Text = "RightCtrl combination released";
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _detector.Dispose();
         }
     }
 }
