@@ -1,4 +1,6 @@
-﻿namespace KeyboardShortcutDetector
+﻿using KeyboardShortcutDetector.Shortcuts;
+
+namespace KeyboardShortcutDetector
 {
     public interface IShortcutPressedObserver<in TShortcut> 
         where TShortcut :class, IKeyboardShortcut

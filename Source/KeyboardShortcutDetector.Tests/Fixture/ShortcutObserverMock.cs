@@ -1,8 +1,9 @@
 ﻿using System.Windows.Input;
+using KeyboardShortcutDetector.Shortcuts;
 
 namespace KeyboardShortcutDetector.Tests.Fixture
 {
-    internal class CtrlAltDel : Shortcut
+    internal class CtrlAltDel : PermutationShortcut
     {
         public CtrlAltDel() : base(Key.LeftCtrl, Key.LeftAlt, Key.Delete)
         { }

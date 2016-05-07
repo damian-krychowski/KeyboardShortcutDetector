@@ -86,7 +86,7 @@ namespace KeyboardShortcutDetector.Tests
             //Arrange
             var shortcutObserver = new RangeShortcutObserver();
 
-            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigit());
+            Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigitPermutation());
             Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act
@@ -163,7 +163,7 @@ namespace KeyboardShortcutDetector.Tests
             var shortcutObserver = new MultipleShortcutsObserver();
 
             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDel());
-             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigit());
+             Fixture.ShortcutDetector.RegisterShortcut(new CtrlAltDigitPermutation());
             Fixture.ShortcutDetector.Subscribe(shortcutObserver);
 
             //Act

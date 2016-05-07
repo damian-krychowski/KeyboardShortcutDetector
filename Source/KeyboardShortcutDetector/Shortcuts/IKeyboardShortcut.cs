@@ -1,4 +1,7 @@
-﻿namespace KeyboardShortcutDetector
+﻿using System.Collections.Immutable;
+using System.Windows.Input;
+
+namespace KeyboardShortcutDetector.Shortcuts
 {
     public enum ShortcutStateChange
     {
@@ -8,5 +11,6 @@
     public interface IKeyboardShortcut
     {
         ShortcutStateChange KeyboardStateChanged(KeyboardState state);
+        ImmutableArray<Key> LastTriggeredBy { get; }
     }
 }

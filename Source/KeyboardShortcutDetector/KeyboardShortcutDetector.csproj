@@ -47,19 +47,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IKeyboard.cs" />
-    <Compile Include="IKeyboardShortcut.cs" />
+    <Compile Include="Keys\Alt.cs" />
+    <Compile Include="Keys\AnyKey.cs" />
+    <Compile Include="Keys\KeysAnd.cs" />
+    <Compile Include="Keys\KeysOr.cs" />
+    <Compile Include="Keys\Shift.cs" />
+    <Compile Include="Shortcuts\CombinationShortcut.cs" />
+    <Compile Include="Keys\Ctrl.cs" />
+    <Compile Include="Keys\Digit.cs" />
+    <Compile Include="Keys\IKey.cs" />
+    <Compile Include="Shortcuts\IKeyboardShortcut.cs" />
     <Compile Include="IKeyboardShortcutDetector.cs" />
     <Compile Include="IKeyCombination.cs" />
     <Compile Include="ImmutableArrayExtensions.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="KeyboardShortcutDetectorFactory.cs" />
-    <Compile Include="SeriesShortcut.cs" />
+    <Compile Include="Keys\Letter.cs" />
+    <Compile Include="Keys\NumDigit.cs" />
+    <Compile Include="Keys\RangeKey.cs" />
+    <Compile Include="Keys\SeriesKey.cs" />
     <Compile Include="ShortcutDetector.cs" />
     <Compile Include="KeyboardState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RangeShortcut.cs" />
-    <Compile Include="Shortcut.cs" />
+    <Compile Include="Shortcuts\PermutationShortcut.cs" />
     <Compile Include="ShortcutObserverList.cs" />
+    <Compile Include="Keys\SingleKey.cs" />
+    <Compile Include="Shortcuts\Shortcut.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
