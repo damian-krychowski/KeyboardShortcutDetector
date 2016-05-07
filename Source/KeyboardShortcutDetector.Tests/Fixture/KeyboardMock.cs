@@ -11,6 +11,11 @@ namespace KeyboardShortcutDetector.Tests.Fixture
         {
         }
 
+        public void Restart()
+        {
+            _state = KeyboardState.Empty();
+        }
+
         public event Action<KeyboardState> StateChanged;
 
         public void PressKey(Key key)

@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IKeyboard.cs" />
+    <Compile Include="IShortcutPressedObserver.cs" />
+    <Compile Include="IShortcutReleasedObserver.cs" />
     <Compile Include="Keys\Alt.cs" />
     <Compile Include="Keys\AnyKey.cs" />
     <Compile Include="Keys\KeysAnd.cs" />
@@ -59,7 +61,7 @@
     <Compile Include="Shortcuts\CtrlAltDelShortcut.cs" />
     <Compile Include="Shortcuts\IKeyboardShortcut.cs" />
     <Compile Include="IKeyboardShortcutDetector.cs" />
-    <Compile Include="IKeyCombination.cs" />
+    <Compile Include="IShortcutObserver.cs" />
     <Compile Include="ImmutableArrayExtensions.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="KeyboardShortcutDetectorFactory.cs" />
