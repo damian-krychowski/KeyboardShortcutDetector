@@ -5,7 +5,7 @@ namespace KeyboardShortcutDetector.Tests.Fixture
 {
     internal class KeyboardMock : IKeyboard
     {
-        private KeyboardState _state = KeyboardState.Empty();
+        public KeyboardState State { get; private set; } = KeyboardState.Empty();
 
         public void Dispose()
         {
@@ -13,21 +13,21 @@ namespace KeyboardShortcutDetector.Tests.Fixture
 
         public void Restart()
         {
-            _state = KeyboardState.Empty();
+            State = KeyboardState.Empty();
         }
 
         public event Action<KeyboardState> StateChanged;
 
         public void PressKey(Key key)
         {
-            _state = _state.KeyWasPressed(key);
-            StateChanged?.Invoke(_state);
+            State = State.KeyWasPressed(key);
+            StateChanged?.Invoke(State);
         }
 
         public void ReleaseKey(Key key)
         {
-            _state = _state.KeyWasReleased(key);
-            StateChanged?.Invoke(_state);
+            State = State.KeyWasReleased(key);
+            StateChanged?.Invoke(State);
         }
     }
 }

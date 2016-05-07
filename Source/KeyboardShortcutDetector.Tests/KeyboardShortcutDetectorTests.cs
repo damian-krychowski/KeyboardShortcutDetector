@@ -211,5 +211,22 @@ namespace KeyboardShortcutDetector.Tests
 
             subscription.ShouldThrow<Exception>();
         }
+
+        [Test]
+        public void Should_restart_on_ctrl_alt_del_shortcut()
+        {
+            //Arrange
+            Fixture.ShortcutDetector.RestartOnCtrlAltDel();
+
+            //Act
+            Fixture.Press(Key.LeftCtrl);
+            Fixture.Press(Key.LeftAlt);
+            Fixture.Press(Key.Delete);
+
+            //Assert
+            Fixture.Keyboard.State.BeforePreviousCombination.IsEmpty.Should().BeTrue();
+            Fixture.Keyboard.State.PreviousCombination.IsEmpty.Should().BeTrue();
+            Fixture.Keyboard.State.CurrentCombination.IsEmpty.Should().BeTrue();
+        }
     }
 }
