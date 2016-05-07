@@ -44,6 +44,12 @@ Task("Create-NuGet-Package")
         ProjectUrl              = new Uri("https://github.com/damian-krychowski/KeyboardShortcutDetector"),
         LicenseUrl              = new Uri("https://github.com/damian-krychowski/KeyboardShortcutDetector/blob/master/LICENSE"),
         Copyright               = "Damian Krychowski 2016",
+        Dependencies            = new []{
+            new NuSpecDependency{
+                Id              = "System.Collections.Immutable",
+                Version         = "1.1.32-beta"
+            }
+        },        
         RequireLicenseAcceptance= false,
         Symbols                 = false,
         NoPackageAnalysis       = true,
