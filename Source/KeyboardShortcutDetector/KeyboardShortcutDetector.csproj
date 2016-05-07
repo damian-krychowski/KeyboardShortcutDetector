@@ -54,6 +54,7 @@
     <Compile Include="Keys\KeysAnd.cs" />
     <Compile Include="Keys\KeysOr.cs" />
     <Compile Include="Keys\Shift.cs" />
+    <Compile Include="ShortcutDetectorExtensions.cs" />
     <Compile Include="Shortcuts\CombinationShortcut.cs" />
     <Compile Include="Keys\Ctrl.cs" />
     <Compile Include="Keys\Digit.cs" />

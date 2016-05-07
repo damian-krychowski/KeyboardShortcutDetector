@@ -62,6 +62,11 @@ namespace KeyboardShortcutDetector
             }
         }
 
+        public void Restart()
+        {
+            _keyboard.Restart();
+        }
+
         public void RegisterShortcut(IKeyboardShortcut shortcut)
         {
             if (shortcut == null) throw new ArgumentNullException(nameof(shortcut));

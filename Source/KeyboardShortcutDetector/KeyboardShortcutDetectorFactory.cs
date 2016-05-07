@@ -10,8 +10,11 @@ namespace KeyboardShortcutDetector
     {
         public IKeyboardShortcutDetector Create()
         {
-            return new ShortcutDetector(
-                new Keyboard());
+            var detector = new ShortcutDetector(new Keyboard());
+            
+            detector.RestartOnCtrlAltDel();
+
+            return detector;
         }
     }
 }
