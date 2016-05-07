@@ -20,7 +20,7 @@ namespace KeyboardShortcutDetector.Shortcuts
         {
             _keys = keys.ToImmutableHashSet();
         }
-        
+
         protected override bool WasPressed(KeyboardState state)
         {
             return _keys.IsProperSupersetOfKeys(state.PreviousCombination) &&
